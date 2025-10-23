@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://da3cjef1iuts7"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_u2te7"]
+[ext_resource type="Texture2D" uid="uid://dh801q2ujqs71" path="res://Ninja Adventure - Asset Pack/Ninja Adventure - Asset Pack/Actor/Characters/NinjaMageBlack/SpriteSheet.png" id="2_oj8u8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kcrfd"]
+radius = 49.0
+height = 98.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wofjp"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"walk_down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walk_left",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walk_right",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walk_up",
+"speed": 5.0
+}]
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_u2te7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_kcrfd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_oj8u8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wofjp")
+animation = &"walk_down"
