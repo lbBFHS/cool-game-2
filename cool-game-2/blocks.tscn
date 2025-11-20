@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmpipg15h4j76"]
+
+[ext_resource type="Texture2D" uid="uid://dw7u1yy4yi4gd" path="res://Ninja Adventure - Asset Pack/Ninja Adventure - Asset Pack/Backgrounds/Tilesets/TilesetDungeon.png" id="1_go4xd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7lt7o"]
+radius = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7ne8"]
+atlas = ExtResource("1_go4xd")
+region = Rect2(32, 48, 16, 16)
+
+[node name="Blocks" type="RigidBody2D" groups=["movable"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7lt7o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_s7ne8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
