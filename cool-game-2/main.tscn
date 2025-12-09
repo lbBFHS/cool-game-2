@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://bukx8gwjakg28"]
+[gd_scene load_steps=15 format=4 uid="uid://bukx8gwjakg28"]
 
 [ext_resource type="Texture2D" uid="uid://b6jm8laltqdux" path="res://Ninja Adventure - Asset Pack/Ninja Adventure - Asset Pack/Backgrounds/Tilesets/TilesetFloor.png" id="1_bwhsg"]
 [ext_resource type="PackedScene" uid="uid://da3cjef1iuts7" path="res://player.tscn" id="1_ildjg"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cnkdn24h5ix5m" path="res://puzzle_button.tscn" id="5_lgpsa"]
 [ext_resource type="PackedScene" uid="uid://bwp7ebrp4m6sn" path="res://portal_door.tscn" id="6_coadc"]
 [ext_resource type="PackedScene" uid="uid://cmpipg15h4j76" path="res://blocks.tscn" id="7_38p2p"]
+[ext_resource type="PackedScene" uid="uid://bg4s4t06cchjx" path="res://slime.tscn" id="8_vkkt6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nthlj"]
 texture = ExtResource("1_bwhsg")
@@ -1622,6 +1623,8 @@ tile_set = SubResource("TileSet_retae")
 
 [node name="player" parent="." instance=ExtResource("1_ildjg")]
 position = Vector2(567, 315)
+collision_layer = 2
+collision_mask = 21
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 zoom = Vector2(3.5, 3.5)
@@ -1635,3 +1638,6 @@ next_scene = "res://city.tscn"
 [node name="PortalDoor" parent="." instance=ExtResource("6_coadc")]
 
 [node name="Blocks" parent="." instance=ExtResource("7_38p2p")]
+
+[node name="Slime" parent="." instance=ExtResource("8_vkkt6")]
+position = Vector2(332, 332)

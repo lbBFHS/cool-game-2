@@ -1,11 +1,29 @@
-[gd_scene load_steps=21 format=3 uid="uid://da3cjef1iuts7"]
+[gd_scene load_steps=31 format=3 uid="uid://da3cjef1iuts7"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_u2te7"]
+[ext_resource type="Texture2D" uid="uid://tmrpj2m1ltmb" path="res://Ninja Adventure - Asset Pack/Ninja Adventure - Asset Pack/Actor/Characters/Monk/SeparateAnim/Attack.png" id="2_0yuoa"]
 [ext_resource type="Texture2D" uid="uid://drdytdky1od2g" path="res://Ninja Adventure - Asset Pack/Ninja Adventure - Asset Pack/Actor/Characters/Monk/SpriteSheet.png" id="2_acn6o"]
+[ext_resource type="Texture2D" uid="uid://buvo7cq8w8772" path="res://Ninja Adventure - Asset Pack/Ninja Adventure - Asset Pack/Items/Weapons/Katana/Sprite.png" id="4_30y1p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kcrfd"]
 radius = 7.0
 height = 14.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1kb7"]
+atlas = ExtResource("2_0yuoa")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw5j8"]
+atlas = ExtResource("2_0yuoa")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsgdn"]
+atlas = ExtResource("2_0yuoa")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6ptp"]
+atlas = ExtResource("2_0yuoa")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o46ao"]
 atlas = ExtResource("2_acn6o")
@@ -75,6 +93,38 @@ region = Rect2(16, 48, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_x1kb7")
+}],
+"loop": true,
+"name": &"attack_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qw5j8")
+}],
+"loop": true,
+"name": &"attack_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsgdn")
+}],
+"loop": true,
+"name": &"attack_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6ptp")
+}],
+"loop": true,
+"name": &"attack_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_o46ao")
 }, {
 "duration": 1.0,
@@ -142,16 +192,68 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_qsqta"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pnjgy"]
+radius = 2.0
+height = 14.0
+
+[sub_resource type="Animation" id="Animation_pp52s"]
+resource_name = "weapon_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k5sou"]
+_data = {
+"weapon_up": SubResource("Animation_pp52s")
+}
+
 [node name="player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 23
 script = ExtResource("1_u2te7")
+move_speed = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -1)
 shape = SubResource("CapsuleShape2D_kcrfd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, -1)
 scale = Vector2(1.117, 1)
 sprite_frames = SubResource("SpriteFrames_wofjp")
-animation = &"walk_up"
-frame_progress = 0.739969
+animation = &"attack_up"
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_qsqta")
+
+[node name="Weapon" type="Sprite2D" parent="."]
+position = Vector2(-4, -14)
+texture = ExtResource("4_30y1p")
+
+[node name="WeaponArea" type="Area2D" parent="Weapon"]
+position = Vector2(0, 1)
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/WeaponArea"]
+shape = SubResource("CapsuleShape2D_pnjgy")
+
+[node name="WeaponTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_k5sou")
+}
